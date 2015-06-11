@@ -1,0 +1,92 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4">
+      <h3>Bricklets:</h3>
+      <select ng-model="bricklet" ng-options="bricklet as bricklet.name for bricklet in bricklets" class="form-control visible-xs"></select>
+      <div class="list-group">
+        <a  href="#"
+            ng-repeat="b in bricklets"
+            ng-click="selectBricklet(b)"
+            ng-class="{'active': b == bricklet}"
+            class="list-group-item hidden-xs">{{b.name}}</a>
+      </div>
+      <a href="#" ng-click="addBricklet()"><i class="glyphicon glyphicon-plus"></i> add Bricklet</a>
+    </div>
+    <div class="col-lg-8" ng-hide="bricklet === undfined">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Edit Bricklet</h3>
+        </div>
+        <div class="panel-body">
+          <form>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" ng-model="bricklet.name" class="form-control" id="name" placeholder="Brickletname">
+            </div>
+            <div class="form-group">
+              <label for="host">Host</label>
+              <input type="text" ng-model="bricklet.host" class="form-control" id="host" placeholder="127.0.0.1">
+            </div>
+            <div class="form-group">
+              <label for="uid">UID</label>
+              <input type="text" ng-model="bricklet.uid" class="form-control" id="uid" placeholder="">
+            </div>
+            <div class="form-group">
+              <label for="deviceidentifier">Device</label>
+              <select ng-model="bricklet.deviceidentifier" ng-options="device.id as device.label for device in devices" class="form-control" id="deviceidentifier"></select>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Frontend</h3>
+              </div>
+              <div class="panel-body">
+                <div class="form-group">
+                  <label for="frontend_port">Port (Websocket)</label>
+                  <input type="number" ng-model="bricklet.frontend.port" class="form-control" id="frontend_port" placeholder="">
+                </div>
+              </div>
+            </div>
+
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Backend</h3>
+              </div>
+              <div class="panel-body">
+                <div class="form-group">
+                  <label for="backend_port">Port</label>
+                  <input type="number" ng-model="bricklet.backend.port" class="form-control" id="backend_port" placeholder="">
+                </div>
+                <div class="panel panel-default" ng-show="devices[bricklet.deviceidentifier].threshold">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Threshold</h3>
+                  </div>
+                  <div class="panel-body">
+                    <div class="form-group">
+                      <label for="backend_threshold_option">Port</label>
+                      <select ng-model="bricklet.backend.threshold.option" ng-options="option.key as option.label for option in thresholdOptions" class="form-control" id="backend_threshold_option"></select>
+                    </div>
+                    <div class="form-group" ng-hide="bricklet.backend.threshold.option == 'x'">
+                      <label for="backend_threshold_min">Min</label>
+                      <input type="number" ng-model="bricklet.backend.threshold.min" class="form-control" id="backend_threshold_min" placeholder="">
+                    </div>
+                    <div class="form-group" ng-hide="bricklet.backend.threshold.option == 'x' || bricklet.backend.threshold.option == '<' || bricklet.backend.threshold.option == '>'">
+                      <label for="backend_threshold_max">Max</label>
+                      <input type="number" ng-model="bricklet.backend.threshold.max" class="form-control" id="backend_threshold_max" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="btn-group" role="group" aria-label="...">
+              <button type="submit" ng-click="saveBricklet(bricklet)" class="btn btn-success"><i class="glyphicon glyphicon-floppy-disk"></i> save</button>
+              <button type="button" ng-click="removeBricklet(bricklet)" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i> delete</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
