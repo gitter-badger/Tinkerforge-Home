@@ -43,7 +43,7 @@ angular.module('tfHomeApp')
           // otherwise just add item to the collection
           if (oldItem) {
             //array.splice(index, 1, item);
-            _.assign(oldItem, item)
+            _.assign(oldItem, item);
             event = 'updated';
           } else {
             array.push(item);

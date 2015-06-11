@@ -34,14 +34,17 @@ angular.module 'tfHomeApp'
       oldItem = _.find array,
         _id: item._id
 
-      index = array.indexOf oldItem
+      #index = array.indexOf oldItem
       event = 'created'
 
       # replace oldItem if it exists
       # otherwise just add item to the collection
       if oldItem
         #array.splice index, 1, item
-        _.assign(oldItem, item)#array.splice index, 1, item
+        ###*
+         * Overwrite the oltItem
+        ###
+        _.assign(oldItem, item) #array.splice index, 1, item
         event = 'updated'
       else
         array.push item
